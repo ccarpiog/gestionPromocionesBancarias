@@ -11,10 +11,8 @@
 /**
  * YOUR SPREADSHEET ID HERE
  * Get this from the URL: https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/edit
- *
- * Example: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms'
  */
-const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID_HERE';
+const SPREADSHEET_ID = SpreadsheetApp.getActiveSpreadSheet().getId();
 
 /**
  * Get the spreadsheet instance
