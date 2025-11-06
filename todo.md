@@ -1,0 +1,2 @@
+- There must be a Google Sheet "Configuración" in which the user may write down, for example, the email address that will receive the messages.
+- The webapp must have a timeline  with all the events past, present and future in the same view.
