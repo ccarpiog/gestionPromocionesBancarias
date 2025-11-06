@@ -1,0 +1,3 @@
+- Write all user-facing text in the UI in Spanish. Write all documentation, comments, etc in English, including README files and such.
+- When committing and pushing to Git, never include your name (Claude) or any reference to AI use.
+- Never use Title Case unless the user asks explicitly for it.
