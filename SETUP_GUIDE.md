@@ -1,5 +1,10 @@
 # Setup Guide - Gestión de Promociones Bancarias
 
+> **💡 NEW: Automated Setup Available!**
+> You can now automate most of these setup steps with one click!
+> See [SETUP_AUTOMATION.md](./SETUP_AUTOMATION.md) for details on using the `quickSetup()` function.
+> This guide remains useful for understanding the structure and for manual setup if needed.
+
 ## Phase 1: Foundation & Data Model Setup
 
 ### Step 1: Create Google Sheets Spreadsheet
