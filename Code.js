@@ -223,17 +223,35 @@ function initializeSystem() {
 }
 
 /**
- * Menu item to run system tests
+ * Menu item to run system tests and setup functions
  */
 function onOpen() {
   const ui = SpreadsheetApp.getUi();
+
+  // Main menu
   ui.createMenu('Promociones App')
-    .addItem('Initialize System', 'initializeSystem')
-    .addItem('Test Configuration', 'testConfig')
-    .addItem('Test Utils', 'testUtils')
-    .addItem('Test SheetService', 'testSheetService')
+    .addItem('🚀 Quick Setup', 'quickSetup')
+    .addItem('✓ Verify Setup', 'verifySetup')
     .addSeparator()
-    .addItem('Open Web App', 'openWebApp')
+    .addSubMenu(
+      ui.createMenu('📋 Setup Functions')
+        .addItem('Create All Sheets', 'createAllSheets')
+        .addItem('Add Sample Data', 'addAllSampleData')
+        .addItem('Format All Sheets', 'formatAllSheets')
+        .addItem('Color Code Tabs', 'colorCodeSheetTabs')
+        .addSeparator()
+        .addItem('⚠️ Reset Everything', 'resetAll')
+    )
+    .addSeparator()
+    .addSubMenu(
+      ui.createMenu('🧪 Testing')
+        .addItem('Test Configuration', 'testConfig')
+        .addItem('Test Utils', 'testUtils')
+        .addItem('Test SheetService', 'testSheetService')
+        .addItem('Initialize System', 'initializeSystem')
+    )
+    .addSeparator()
+    .addItem('🌐 Open Web App', 'openWebApp')
     .addToUi();
 }
 
