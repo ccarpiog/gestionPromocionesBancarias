@@ -380,6 +380,14 @@ function sortByProperty(arr, property, ascending = true) {
 // ============================================================================
 
 /**
+ * Log info message with context
+ * @param {string} message - Info message
+ */
+function logInfo(message) {
+  Logger.log(`[INFO] ${message}`);
+}
+
+/**
  * Log error with context
  * @param {string} context - Context where error occurred
  * @param {Error} error - Error object
