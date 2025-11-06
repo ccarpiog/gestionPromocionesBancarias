@@ -3,6 +3,11 @@
 ## Overview
 This plan breaks down the PRD implementation into 8 testable phases, each achievable in 1-3 days.
 
+### Key Features from todo.md Integration
+This implementation plan includes two additional requirements from `todo.md`:
+1. **Configuración Sheet**: A dedicated Google Sheet for system configuration (email addresses, notification preferences, etc.) - integrated in Phase 1 and Phase 7
+2. **Unified Timeline View**: An interactive timeline showing all events (transfers, periods, promotions, evaluations) in past, present, and future in a single view - implemented in Phase 8
+
 ---
 
 ## Phase 1: Foundation & Data Model Setup (2 days)
@@ -14,8 +19,13 @@ This plan breaks down the PRD implementation into 8 testable phases, each achiev
 
 ### Tasks
 1. **Create Google Sheets structure**
-   - Create spreadsheet with 7 sheets: `Banks`, `Promotions`, `Conditions`, `Periods`, `Evaluations`, `Transfers`, `Documents`
+   - Create spreadsheet with 8 sheets: `Banks`, `Promotions`, `Conditions`, `Periods`, `Evaluations`, `Transfers`, `Documents`, `Configuración`
    - Add header rows with column names as per PRD section 4
+   - **New: `Configuración` sheet** for system settings:
+     - `key` (Text): Setting identifier (e.g., "email_address", "notification_days_before")
+     - `value` (Text): Setting value
+     - `description` (Text): Human-readable description
+     - `type` (Text): Data type (email, number, boolean, text)
    - Add sample data for testing (2-3 rows per sheet)
 
 2. **Set up Google Apps Script project**
@@ -33,8 +43,9 @@ This plan breaks down the PRD implementation into 8 testable phases, each achiev
    - Error handling framework
 
 ### Testing Criteria
-- [ ] All 7 sheets exist with correct headers
+- [ ] All 8 sheets exist with correct headers (including Configuración)
 - [ ] Can read/write sample data from each sheet
+- [ ] Configuración sheet has initial settings (email_address, notification settings)
 - [ ] ID generation works uniquely
 - [ ] Basic webapp deploys successfully (blank page is OK)
 
@@ -311,19 +322,27 @@ This plan breaks down the PRD implementation into 8 testable phases, each achiev
      - Links back to webapp (if applicable)
      - Unsubscribe/settings option
 
-4. **Settings UI**
+4. **Settings UI & Configuration Sheet Integration**
+   - `models/ConfigModel.gs`: CRUD for Configuración sheet
+     - `getSetting(key)`: Retrieve setting value
+     - `setSetting(key, value)`: Update setting value
+     - `getAllSettings()`: Get all configuration
    - `ui/settings.html`: Notification preferences
-     - Email address (default: current user)
+     - Email address (stored in Configuración sheet)
      - Enable/disable each notification type
-     - Days before reminder
+     - Days before reminder for each notification type
+     - All settings read from and written to Configuración sheet
 
 ### Testing Criteria
 - [ ] Can manually trigger notification batch
+- [ ] Settings stored and retrieved from Configuración sheet
+- [ ] Email sent to address from Configuración sheet
 - [ ] Receives email for upcoming transfer
 - [ ] Receives email for ending period
 - [ ] Receives email for expiring promotion
 - [ ] Daily trigger installs correctly
-- [ ] Can modify notification settings
+- [ ] Can modify notification settings via UI
+- [ ] Settings persist in Configuración sheet after changes
 - [ ] No duplicate emails sent
 
 ### Deliverables
@@ -352,7 +371,30 @@ This plan breaks down the PRD implementation into 8 testable phases, each achiev
      - Quick actions menu
      - Navigation to all sections
 
-2. **Document Management**
+2. **Timeline View** ⭐ NEW FEATURE
+   - `ui/timeline.html`: Unified timeline showing all events
+   - `services/TimelineService.gs`: Aggregate events from multiple sources
+     - Collect events from:
+       - **Transfers**: planned dates (📅) and completion dates (✅)
+       - **Periods**: start/end dates with status indicators
+       - **Promotions**: start/end dates
+       - **Evaluations**: due dates for pending evaluations (⚠️)
+     - Sort chronologically (past → present → future)
+     - Add event metadata (type, status, related entity)
+   - **Timeline UI Features**:
+     - Visual timeline with markers for each event
+     - Color coding by event type and status:
+       - 🟢 Completed/Met events (past)
+       - 🔵 Current period indicator
+       - 🟡 Upcoming events (future)
+       - 🔴 Overdue/missed events
+     - Filters: event type, date range, promotion, status
+     - Toggle views: List view / Calendar view / Gantt-style timeline
+     - Click event to navigate to detail page
+     - Today marker/indicator
+     - Zoom controls (day/week/month/year view)
+
+3. **Document Management**
    - `services/DocumentService.gs`: Drive integration
      - Create folder in Drive (one-time setup)
      - Upload file to Drive
@@ -364,39 +406,47 @@ This plan breaks down the PRD implementation into 8 testable phases, each achiev
      - Display linked documents with download links
      - Delete document functionality
 
-3. **Visual Polish**
+4. **Visual Polish**
    - Consistent styling across all pages
    - Traffic light indicators (🟢🟡🔴) for status
    - Responsive design basics
    - Loading states and error messages
    - Confirmation dialogs for delete actions
 
-4. **Navigation & Routing**
-   - Main menu/sidebar with links to all sections
+5. **Navigation & Routing**
+   - Main menu/sidebar with links to all sections (including Timeline)
    - Breadcrumb navigation
    - Back buttons
 
-5. **Final Testing**
+6. **Final Testing**
    - End-to-end workflow test
+   - Timeline displays all events correctly
    - Performance optimization
    - Error handling review
    - Cross-browser testing (Chrome, Firefox, Safari)
 
 ### Testing Criteria
 - [ ] Dashboard loads and shows accurate counts
+- [ ] **Timeline displays all event types correctly** (transfers, periods, promotions, evaluations)
+- [ ] **Timeline events sorted chronologically**
+- [ ] **Timeline filters work** (event type, date range, status)
+- [ ] **Timeline view toggles work** (list/calendar/gantt)
+- [ ] **Can click timeline event to navigate to detail**
+- [ ] **Today marker visible and accurate**
 - [ ] Can upload document to promotion
 - [ ] Document stored in Drive with correct permissions
 - [ ] Can download document from UI
-- [ ] All navigation works smoothly
+- [ ] All navigation works smoothly (including timeline link)
 - [ ] Status indicators display correctly
 - [ ] UI is consistent across all pages
 - [ ] No console errors
 - [ ] Complete user workflow works end-to-end
 
 ### Deliverables
-- Polished, production-ready dashboard
-- Working document management
-- Complete navigation system
+- Polished, production-ready dashboard with summary cards
+- **Interactive timeline view showing all events** (past, present, future)
+- Working document management with Drive integration
+- Complete navigation system including timeline access
 - User documentation (brief guide)
 
 ---
@@ -491,6 +541,7 @@ This plan breaks down the PRD implementation into 8 testable phases, each achiev
 
 ---
 
-*Document Version: 1.0*
+*Document Version: 1.1*
 *Date: 2025-11-06*
 *Branch: claude/prd-implementation-plan-011CUrfTJFN1GdbLS7ZcrBZe*
+*Changelog: v1.1 - Merged requirements from todo.md (Configuración sheet + Timeline view)*
