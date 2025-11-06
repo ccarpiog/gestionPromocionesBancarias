@@ -2,36 +2,708 @@
 <html>
 <head>
   <base target="_top">
-  <title>Banks - Coming in Phase 2</title>
+  <meta charset="UTF-8">
+  <title>Bancos - Gestión de promociones bancarias</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    * {
       margin: 0;
-      background-color: #f5f5f5;
+      padding: 0;
+      box-sizing: border-box;
     }
-    .message {
-      text-align: center;
-      padding: 40px;
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
       background-color: white;
       border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 30px;
     }
-    .message h1 {
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .header h1 {
       color: #1976d2;
+      font-size: 28px;
+    }
+
+    .nav-link {
+      color: #1976d2;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 20px;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background-color: #1976d2;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #1565c0;
+    }
+
+    .btn-secondary {
+      background-color: #757575;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background-color: #616161;
+    }
+
+    .btn-success {
+      background-color: #4caf50;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: #45a049;
+    }
+
+    .btn-danger {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: #da190b;
+    }
+
+    .btn-small {
+      padding: 5px 12px;
+      font-size: 12px;
+    }
+
+    .checkbox-filter {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox-filter input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .checkbox-filter label {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    thead {
+      background-color: #f5f5f5;
+    }
+
+    th {
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      color: #555;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    td {
+      padding: 12px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .badge-success {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+    }
+
+    .badge-danger {
+      background-color: #ffebee;
+      color: #c62828;
+    }
+
+    .badge-info {
+      background-color: #e3f2fd;
+      color: #1565c0;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #999;
+    }
+
+    .empty-state-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #999;
+    }
+
+    .error {
+      background-color: #ffebee;
+      color: #c62828;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      border-left: 4px solid #c62828;
+    }
+
+    .success {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      border-left: 4px solid #2e7d32;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 1000;
+      animation: fadeIn 0.2s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      position: relative;
+      background-color: white;
+      margin: 5% auto;
+      padding: 30px;
+      border-radius: 8px;
+      max-width: 600px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      animation: slideDown 0.3s;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .modal-header h2 {
+      color: #1976d2;
+      font-size: 22px;
+    }
+
+    .close {
+      font-size: 28px;
+      font-weight: bold;
+      color: #999;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .close:hover {
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    .form-group input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .form-group input[type="text"]:focus {
+      outline: none;
+      border-color: #1976d2;
+      box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+    }
+
+    .form-group-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .form-group-checkbox input {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .form-group-checkbox label {
+      cursor: pointer;
+      user-select: none;
+      margin: 0;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 25px;
+      padding-top: 20px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .info-text {
+      font-size: 13px;
+      color: #666;
+      margin-top: 5px;
     }
   </style>
 </head>
 <body>
-  <div class="message">
-    <h1>🏦 Banks Management</h1>
-    <p>This page will be implemented in <strong>Phase 2</strong></p>
-    <br>
-    <a href="?page=dashboard">← Back to Dashboard</a>
+  <div class="container">
+    <div class="header">
+      <h1>🏦 Gestión de bancos</h1>
+      <a href="?page=dashboard" class="nav-link">← Volver al panel principal</a>
+    </div>
+
+    <div id="message-container"></div>
+
+    <div class="controls">
+      <button class="btn btn-primary" onclick="openAddModal()">
+        ➕ Añadir banco
+      </button>
+      <div class="checkbox-filter">
+        <input type="checkbox" id="showInactive" onchange="loadBanks()">
+        <label for="showInactive">Mostrar bancos inactivos</label>
+      </div>
+    </div>
+
+    <div id="content">
+      <div class="loading">Cargando bancos...</div>
+    </div>
   </div>
+
+  <!-- Add/Edit Modal -->
+  <div id="bankModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Añadir banco</h2>
+        <span class="close" onclick="closeModal()">&times;</span>
+      </div>
+      <form id="bankForm" onsubmit="return false;">
+        <input type="hidden" id="bankId">
+
+        <div class="form-group">
+          <label for="bankName">Nombre del banco *</label>
+          <input type="text" id="bankName" required placeholder="Ej: BBVA, Santander, ING">
+        </div>
+
+        <div class="form-group-checkbox">
+          <input type="checkbox" id="isBodega">
+          <label for="isBodega">Es cuenta bodega (recibe nóminas)</label>
+        </div>
+        <p class="info-text">Las cuentas bodega pueden marcarse como receptoras de nómina en las transferencias.</p>
+
+        <div class="form-group-checkbox">
+          <input type="checkbox" id="supportsBizum">
+          <label for="supportsBizum">Soporta Bizum</label>
+        </div>
+
+        <div class="form-group-checkbox">
+          <input type="checkbox" id="isActive" checked>
+          <label for="isActive">Activo</label>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-primary" onclick="saveBank()">
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Global state
+    let banks = [];
+    let editingBankId = null;
+
+    // Load banks on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      loadBanks();
+    });
+
+    /**
+     * Load banks from backend
+     */
+    function loadBanks() {
+      const includeInactive = document.getElementById('showInactive').checked;
+
+      google.script.run
+        .withSuccessHandler(handleBanksLoaded)
+        .withFailureHandler(handleError)
+        .apiGetAllBanks(includeInactive);
+    }
+
+    /**
+     * Handle banks loaded successfully
+     */
+    function handleBanksLoaded(response) {
+      if (response.success) {
+        banks = response.data;
+        renderBanks();
+      } else {
+        showError('Error al cargar bancos: ' + response.error);
+      }
+    }
+
+    /**
+     * Render banks table
+     */
+    function renderBanks() {
+      const content = document.getElementById('content');
+
+      if (banks.length === 0) {
+        content.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">🏦</div>
+            <h3>No hay bancos registrados</h3>
+            <p>Haz clic en "Añadir banco" para crear el primero</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = `
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Cuenta bodega</th>
+                <th>Soporta Bizum</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+      `;
+
+      banks.forEach(bank => {
+        html += `
+          <tr>
+            <td><strong>${escapeHtml(bank.name)}</strong></td>
+            <td>
+              ${bank.is_bodega ? '<span class="badge badge-info">Sí</span>' : '<span class="badge">No</span>'}
+            </td>
+            <td>
+              ${bank.supports_bizum ? '<span class="badge badge-success">Sí</span>' : '<span class="badge">No</span>'}
+            </td>
+            <td>
+              ${bank.active ?
+                '<span class="badge badge-success">Activo</span>' :
+                '<span class="badge badge-danger">Inactivo</span>'}
+            </td>
+            <td>
+              <div class="action-buttons">
+                <button class="btn btn-primary btn-small" onclick="editBank('${bank.bank_id}')">
+                  ✏️ Editar
+                </button>
+                ${bank.active ?
+                  `<button class="btn btn-danger btn-small" onclick="confirmDeactivate('${bank.bank_id}', '${escapeHtml(bank.name)}')">
+                    ❌ Desactivar
+                  </button>` :
+                  `<button class="btn btn-success btn-small" onclick="confirmActivate('${bank.bank_id}', '${escapeHtml(bank.name)}')">
+                    ✅ Activar
+                  </button>`
+                }
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+
+      html += `
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      content.innerHTML = html;
+    }
+
+    /**
+     * Open add modal
+     */
+    function openAddModal() {
+      editingBankId = null;
+      document.getElementById('modalTitle').textContent = 'Añadir banco';
+      document.getElementById('bankForm').reset();
+      document.getElementById('bankId').value = '';
+      document.getElementById('isActive').checked = true;
+      document.getElementById('bankModal').style.display = 'block';
+    }
+
+    /**
+     * Edit bank
+     */
+    function editBank(bankId) {
+      const bank = banks.find(b => b.bank_id === bankId);
+      if (!bank) return;
+
+      editingBankId = bankId;
+      document.getElementById('modalTitle').textContent = 'Editar banco';
+      document.getElementById('bankId').value = bank.bank_id;
+      document.getElementById('bankName').value = bank.name;
+      document.getElementById('isBodega').checked = bank.is_bodega;
+      document.getElementById('supportsBizum').checked = bank.supports_bizum;
+      document.getElementById('isActive').checked = bank.active;
+      document.getElementById('bankModal').style.display = 'block';
+    }
+
+    /**
+     * Close modal
+     */
+    function closeModal() {
+      document.getElementById('bankModal').style.display = 'none';
+      editingBankId = null;
+    }
+
+    /**
+     * Save bank (create or update)
+     */
+    function saveBank() {
+      const name = document.getElementById('bankName').value.trim();
+      const isBodega = document.getElementById('isBodega').checked;
+      const supportsBizum = document.getElementById('supportsBizum').checked;
+      const active = document.getElementById('isActive').checked;
+
+      if (!name) {
+        alert('Por favor, introduce un nombre para el banco');
+        return;
+      }
+
+      const bankData = {
+        name: name,
+        is_bodega: isBodega,
+        supports_bizum: supportsBizum,
+        active: active
+      };
+
+      if (editingBankId) {
+        // Update existing bank
+        google.script.run
+          .withSuccessHandler(handleSaveSuccess)
+          .withFailureHandler(handleError)
+          .apiUpdateBank(editingBankId, bankData);
+      } else {
+        // Create new bank
+        google.script.run
+          .withSuccessHandler(handleSaveSuccess)
+          .withFailureHandler(handleError)
+          .apiCreateBank(bankData);
+      }
+    }
+
+    /**
+     * Handle save success
+     */
+    function handleSaveSuccess(response) {
+      if (response.success) {
+        showSuccess(response.message);
+        closeModal();
+        loadBanks();
+      } else {
+        if (response.errors) {
+          showError('Error de validación: ' + response.errors.join(', '));
+        } else {
+          showError('Error: ' + response.error);
+        }
+      }
+    }
+
+    /**
+     * Confirm deactivate
+     */
+    function confirmDeactivate(bankId, bankName) {
+      if (confirm('¿Desactivar el banco "' + bankName + '"?\n\nPodrás reactivarlo más tarde.')) {
+        google.script.run
+          .withSuccessHandler(handleDeactivateSuccess)
+          .withFailureHandler(handleError)
+          .apiDeleteBank(bankId);
+      }
+    }
+
+    /**
+     * Confirm activate
+     */
+    function confirmActivate(bankId, bankName) {
+      if (confirm('¿Activar el banco "' + bankName + '"?')) {
+        google.script.run
+          .withSuccessHandler(handleActivateSuccess)
+          .withFailureHandler(handleError)
+          .apiActivateBank(bankId);
+      }
+    }
+
+    /**
+     * Handle deactivate success
+     */
+    function handleDeactivateSuccess(response) {
+      if (response.success) {
+        showSuccess(response.message);
+        loadBanks();
+      } else {
+        showError('Error: ' + response.error);
+      }
+    }
+
+    /**
+     * Handle activate success
+     */
+    function handleActivateSuccess(response) {
+      if (response.success) {
+        showSuccess(response.message);
+        loadBanks();
+      } else {
+        showError('Error: ' + response.error);
+      }
+    }
+
+    /**
+     * Show error message
+     */
+    function showError(message) {
+      const container = document.getElementById('message-container');
+      container.innerHTML = `<div class="error">${escapeHtml(message)}</div>`;
+      setTimeout(() => { container.innerHTML = ''; }, 5000);
+    }
+
+    /**
+     * Show success message
+     */
+    function showSuccess(message) {
+      const container = document.getElementById('message-container');
+      container.innerHTML = `<div class="success">${escapeHtml(message)}</div>`;
+      setTimeout(() => { container.innerHTML = ''; }, 3000);
+    }
+
+    /**
+     * Handle error
+     */
+    function handleError(error) {
+      showError('Error: ' + error.message);
+      console.error('Error:', error);
+    }
+
+    /**
+     * Escape HTML to prevent XSS
+     */
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('bankModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+  </script>
 </body>
 </html>

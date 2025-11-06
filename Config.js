@@ -12,7 +12,7 @@
  * YOUR SPREADSHEET ID HERE
  * Get this from the URL: https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/edit
  */
-const SPREADSHEET_ID = SpreadsheetApp.getActiveSpreadSheet().getId();
+const SPREADSHEET_ID = SpreadsheetApp.getActiveSpreadsheet().getId();
 
 /**
  * Get the spreadsheet instance
