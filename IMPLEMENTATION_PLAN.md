@@ -29,17 +29,17 @@ This implementation plan includes two additional requirements from `todo.md`:
    - Add sample data for testing (2-3 rows per sheet)
 
 2. **Set up Google Apps Script project**
-   - Create main `Code.gs` file
+   - Create main `Code.js` file
    - Set up folder structure:
      - `/models` - Data access layer
      - `/services` - Business logic
      - `/ui` - Frontend HTML/JS
      - `/utils` - Helper functions
-   - Create `Config.gs` with spreadsheet ID and constants
+   - Create `Config.js` with spreadsheet ID and constants
 
 3. **Create basic utilities**
-   - `Utils.gs`: ID generator (UUID), date helpers, validation functions
-   - `SheetService.gs`: Generic read/write functions for sheets
+   - `Utils.js`: ID generator (UUID), date helpers, validation functions
+   - `SheetService.js`: Generic read/write functions for sheets
    - Error handling framework
 
 ### Testing Criteria
@@ -65,7 +65,7 @@ This implementation plan includes two additional requirements from `todo.md`:
 
 ### Tasks
 1. **Backend: Banks Service**
-   - `models/BankModel.gs`: CRUD operations
+   - `models/BankModel.js`: CRUD operations
      - `createBank(data)`
      - `getBankById(id)`
      - `getAllBanks(includeInactive)`
@@ -80,7 +80,7 @@ This implementation plan includes two additional requirements from `todo.md`:
    - Basic styling with Google Material Design
 
 3. **API Endpoints**
-   - `api/BanksAPI.gs`: Expose backend functions to frontend
+   - `api/BanksAPI.js`: Expose backend functions to frontend
    - Handle GET/POST/PUT/DELETE operations
 
 ### Testing Criteria
@@ -107,7 +107,7 @@ This implementation plan includes two additional requirements from `todo.md`:
 
 ### Tasks
 1. **Backend: Promotions Service**
-   - `models/PromotionModel.gs`: Full CRUD
+   - `models/PromotionModel.js`: Full CRUD
      - Include all fields from PRD: bank_id, account_number, type, dates, benefits, status, period_cycle_json, notes
      - Status enum: `Activa`, `En pausa`, `Completada`, `Fallida`, `Expirada`
      - Type enum: `Plazo fijo`, `Promoción transferencias`, `Otro`
@@ -151,7 +151,7 @@ This implementation plan includes two additional requirements from `todo.md`:
 
 ### Tasks
 1. **Backend: Conditions Service**
-   - `models/ConditionModel.gs`: CRUD operations
+   - `models/ConditionModel.js`: CRUD operations
    - Condition types enum:
      - `Saldo mínimo`
      - `Bizum activo`
@@ -201,15 +201,15 @@ This implementation plan includes two additional requirements from `todo.md`:
 
 ### Tasks
 1. **Backend: Periods Service**
-   - `models/PeriodModel.gs`: CRUD operations
-   - `services/PeriodGenerator.gs`: Auto-generate periods
+   - `models/PeriodModel.js`: CRUD operations
+   - `services/PeriodGenerator.js`: Auto-generate periods
      - Parse period_cycle_json from promotion
      - Generate next N periods (e.g., 12 months ahead)
      - Create period records with start_ts, end_ts
    - Detect current/active period
 
 2. **Backend: Evaluations Service**
-   - `models/EvaluationModel.gs`: CRUD operations
+   - `models/EvaluationModel.js`: CRUD operations
    - When period created → auto-create evaluation records for each recurring condition
    - Support status: `Pending`, `Met`, `Failed`
    - Record marked_by, marked_on, user_notes
@@ -253,7 +253,7 @@ This implementation plan includes two additional requirements from `todo.md`:
 
 ### Tasks
 1. **Backend: Transfers Service**
-   - `models/TransferModel.gs`: CRUD operations
+   - `models/TransferModel.js`: CRUD operations
    - Fields: from_bank_id, to_bank_id, amount, date_planned, date_done, is_salary_marked, promo_id, status
    - Status: `Planificada`, `Realizada`, `Atrasada`, `Cancelada`
    - Validation: is_salary_marked only if from_bank is_bodega=true
@@ -300,7 +300,7 @@ This implementation plan includes two additional requirements from `todo.md`:
 
 ### Tasks
 1. **Backend: Notification Service**
-   - `services/NotificationService.gs`: Email functions
+   - `services/NotificationService.js`: Email functions
    - Email templates:
      - Transfer reminder (3 days before date_planned)
      - Period ending reminder (2 days before end)
@@ -308,7 +308,7 @@ This implementation plan includes two additional requirements from `todo.md`:
    - Batch notification function (checks all and sends)
 
 2. **Trigger Setup**
-   - `triggers/DailyTrigger.gs`: Run daily check
+   - `triggers/DailyTrigger.js`: Run daily check
    - Install trigger via UI or setup script
    - Find and process:
      - Transfers upcoming in 1-3 days
@@ -323,7 +323,7 @@ This implementation plan includes two additional requirements from `todo.md`:
      - Unsubscribe/settings option
 
 4. **Settings UI & Configuration Sheet Integration**
-   - `models/ConfigModel.gs`: CRUD for Configuración sheet
+   - `models/ConfigModel.js`: CRUD for Configuración sheet
      - `getSetting(key)`: Retrieve setting value
      - `setSetting(key, value)`: Update setting value
      - `getAllSettings()`: Get all configuration
@@ -373,7 +373,7 @@ This implementation plan includes two additional requirements from `todo.md`:
 
 2. **Timeline View** ⭐ NEW FEATURE
    - `ui/timeline.html`: Unified timeline showing all events
-   - `services/TimelineService.gs`: Aggregate events from multiple sources
+   - `services/TimelineService.js`: Aggregate events from multiple sources
      - Collect events from:
        - **Transfers**: planned dates (📅) and completion dates (✅)
        - **Periods**: start/end dates with status indicators
@@ -395,12 +395,12 @@ This implementation plan includes two additional requirements from `todo.md`:
      - Zoom controls (day/week/month/year view)
 
 3. **Document Management**
-   - `services/DocumentService.gs`: Drive integration
+   - `services/DocumentService.js`: Drive integration
      - Create folder in Drive (one-time setup)
      - Upload file to Drive
      - Link file to promotion
      - List documents per promotion
-   - `models/DocumentModel.gs`: CRUD for Documents table
+   - `models/DocumentModel.js`: CRUD for Documents table
    - `ui/documents.html`: Document upload/list widget
      - File upload button
      - Display linked documents with download links

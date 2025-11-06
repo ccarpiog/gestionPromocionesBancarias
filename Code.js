@@ -55,7 +55,7 @@ function doGet(e) {
     return HtmlService.createHtmlOutput(
       '<h1>Error</h1>' +
       '<p>' + error.message + '</p>' +
-      '<p>Please check your configuration in Config.gs</p>'
+      '<p>Please check your configuration in Config.js</p>'
     );
   }
 }

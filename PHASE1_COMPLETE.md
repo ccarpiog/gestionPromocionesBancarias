@@ -30,7 +30,7 @@
   - Includes Configuración sheet and Timeline view
 
 ### 2. Configuration
-- **Config.gs** - Central configuration file with:
+- **Config.js** - Central configuration file with:
   - Spreadsheet connection settings
   - All 8 sheet names defined
   - Column index mappings for all sheets
@@ -40,7 +40,7 @@
   - Test functions
 
 ### 3. Core Utilities
-- **utils/Utils.gs** - Comprehensive utility library:
+- **utils/Utils.js** - Comprehensive utility library:
   - UUID generation
   - ID generation with prefixes
   - Date manipulation (formatting, parsing, calculations)
@@ -52,7 +52,7 @@
   - Test functions
 
 ### 4. Data Access Layer
-- **services/SheetService.gs** - Generic CRUD operations:
+- **services/SheetService.js** - Generic CRUD operations:
   - Read operations (getAllData, getAllDataAsObjects, findById, findByColumn)
   - Write operations (appendRow, appendRowFromObject, updateRow, updateById)
   - Delete operations (deleteRow, deleteById)
@@ -92,7 +92,7 @@ gestionPromocionesBancarias/
 ├── .clasp.json              # Clasp configuration
 ├── appsscript.json          # Apps Script manifest
 ├── Code.js                  # Main entry point ✨
-├── Config.gs                # Configuration ✨
+├── Config.js                # Configuration ✨
 ├── SETUP_GUIDE.md           # Setup instructions ✨
 ├── IMPLEMENTATION_PLAN.md   # Implementation roadmap
 ├── PRD.md                   # Product requirements
@@ -100,10 +100,10 @@ gestionPromocionesBancarias/
 ├── PHASE1_COMPLETE.md       # This file ✨
 │
 ├── utils/
-│   └── Utils.gs             # Utility functions ✨
+│   └── Utils.js             # Utility functions ✨
 │
 ├── services/
-│   └── SheetService.gs      # Data access layer ✨
+│   └── SheetService.js      # Data access layer ✨
 │
 ├── ui/
 │   ├── Dashboard.html       # Main dashboard ✨
@@ -175,7 +175,7 @@ Follow **SETUP_GUIDE.md** to create the spreadsheet with all 8 sheets and sample
 
 ### Step 2: Configure Spreadsheet ID
 1. Copy your Spreadsheet ID from the URL
-2. Edit `Config.gs`
+2. Edit `Config.js`
 3. Replace `YOUR_SPREADSHEET_ID_HERE` with your actual ID
 
 ### Step 3: Push to Google Apps Script
@@ -241,17 +241,17 @@ All functions are documented with JSDoc comments and can be tested individually.
 ## 🎓 Key Patterns Established
 
 ### 1. Configuration Pattern
-- All configuration centralized in `Config.gs`
+- All configuration centralized in `Config.js`
 - Easy to update sheet names, columns, enums
 - Validation functions for safety
 
 ### 2. Data Access Pattern
-- All sheet operations go through `SheetService.gs`
+- All sheet operations go through `SheetService.js`
 - Consistent error handling
 - Support for both array and object representations
 
 ### 3. Utility Pattern
-- Reusable helper functions in `Utils.gs`
+- Reusable helper functions in `Utils.js`
 - Type-safe conversions
 - Standardized error responses
 
@@ -267,8 +267,8 @@ All functions are documented with JSDoc comments and can be tested individually.
 **Objectives:** Banks & Basic Backend (2 days)
 
 ### Tasks:
-1. Create `models/BankModel.gs` with full CRUD operations
-2. Create `api/BanksAPI.gs` to expose functions to frontend
+1. Create `models/BankModel.js` with full CRUD operations
+2. Create `api/BanksAPI.js` to expose functions to frontend
 3. Build `ui/Banks.html` with:
    - List view of all banks
    - Add/Edit form
@@ -293,7 +293,7 @@ Working banks management interface that serves as template for other entities.
 
 ## 🐛 Known Limitations
 
-1. **Spreadsheet ID must be manually set** in Config.gs (by design)
+1. **Spreadsheet ID must be manually set** in Config.js (by design)
 2. **No user authentication** beyond Google account (OK for personal use)
 3. **No data validation rules** in sheets themselves (handled in code)
 4. **Placeholder pages** redirect but don't show content (Phase 2+)

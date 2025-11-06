@@ -11,7 +11,7 @@
    ```
    https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/edit
    ```
-5. You'll need this ID for the Config.gs file
+5. You'll need this ID for the Config.js file
 
 ### Step 2: Create 8 Sheets with Headers
 
@@ -228,7 +228,7 @@ For better readability:
 
 After creating the Google Sheets:
 1. Copy the Spreadsheet ID
-2. Continue with the Apps Script setup (Config.gs will be created next)
+2. Continue with the Apps Script setup (Config.js will be created next)
 3. Deploy the web app
 
 ---
