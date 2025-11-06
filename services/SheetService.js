@@ -380,6 +380,11 @@ function batchUpdate(sheetName, updates) {
  */
 function batchAppend(sheetName, rows) {
   try {
+    // Handle empty array case
+    if (!rows || rows.length === 0) {
+      return 0;
+    }
+
     const headers = getHeaders(sheetName);
 
     const rowsData = rows.map(rowObject => {

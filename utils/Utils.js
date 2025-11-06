@@ -362,10 +362,10 @@ function removeDuplicates(arr) {
  * @param {Array} arr - Array of objects
  * @param {string} property - Property to sort by
  * @param {boolean} ascending - Sort direction (default: true)
- * @returns {Array} Sorted array
+ * @returns {Array} Sorted array (new array, does not mutate original)
  */
 function sortByProperty(arr, property, ascending = true) {
-  return arr.sort((a, b) => {
+  return [...arr].sort((a, b) => {
     const aVal = a[property];
     const bVal = b[property];
 
@@ -387,7 +387,6 @@ function sortByProperty(arr, property, ascending = true) {
 function logError(context, error) {
   const message = `[ERROR in ${context}] ${error.message}`;
   Logger.log(message);
-  console.error(message);
 
   // You could extend this to send errors to a monitoring service
   // or store them in a dedicated sheet

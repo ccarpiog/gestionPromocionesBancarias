@@ -24,7 +24,7 @@ function getSpreadsheet() {
   try {
     return SpreadsheetApp.openById(SPREADSHEET_ID);
   } catch (error) {
-    throw new Error('Could not open spreadsheet. Please check SPREADSHEET_ID in Config.gs. Error: ' + error.message);
+    throw new Error('Could not open spreadsheet. Please check SPREADSHEET_ID in Config.js. Error: ' + error.message);
   }
 }
 

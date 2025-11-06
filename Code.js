@@ -67,6 +67,13 @@ function doGet(e) {
  */
 function doPost(e) {
   try {
+    // Validate POST data exists
+    if (!e.postData || !e.postData.contents) {
+      return ContentService.createTextOutput(
+        JSON.stringify(createErrorResponse('No data provided', 'MISSING_DATA'))
+      ).setMimeType(ContentService.MimeType.JSON);
+    }
+
     const action = e.parameter.action;
     const data = JSON.parse(e.postData.contents);
 
