@@ -192,21 +192,21 @@
 <body>
   <div class="header">
     <h1><?= appName ?></h1>
-    <p>User: <?= userName ?> | Phase 1: Foundation Complete ✓</p>
+    <p>Usuario: <?= userName ?> | Fase 1: Base completada ✓</p>
   </div>
 
   <div class="container">
     <!-- Welcome Card -->
     <div class="welcome-card">
-      <h2>Welcome to Banking Promotions Manager! 🏦</h2>
+      <h2>¡Bienvenido al gestor de promociones bancarias! 🏦</h2>
       <p>
-        This application helps you manage banking promotions, track conditions, plan transfers,
-        and never miss a requirement. This is Phase 1 - the foundation is ready!
+        Esta aplicación te ayuda a gestionar promociones bancarias, hacer seguimiento de condiciones, planificar transferencias
+        y no perderte ningún requisito. Esta es la Fase 1 - ¡la base está lista!
       </p>
       <br>
       <p>
-        <span class="badge success">Phase 1 Complete</span>
-        <span class="badge warning">Setup Required</span>
+        <span class="badge success">Fase 1 completada</span>
+        <span class="badge warning">Configuración requerida</span>
       </p>
     </div>
 
@@ -214,29 +214,29 @@
     <div class="setup-instructions">
       <h3>
         <span>⚙️</span>
-        <span>Setup Required - Follow These Steps:</span>
+        <span>Configuración requerida - Sigue estos pasos:</span>
       </h3>
       <ol>
         <li>
-          <strong>Create Google Sheets:</strong>
-          Follow the <a href="https://github.com/ccarpiog/gestionPromocionesBancarias/blob/main/SETUP_GUIDE.md" target="_blank">SETUP_GUIDE.md</a>
-          to create all 8 required sheets with sample data.
+          <strong>Crear hojas de Google:</strong>
+          Sigue el <a href="https://github.com/ccarpiog/gestionPromocionesBancarias/blob/main/SETUP_GUIDE.md" target="_blank">SETUP_GUIDE.md</a>
+          para crear las 8 hojas requeridas con datos de ejemplo.
         </li>
         <li>
-          <strong>Update Configuration:</strong>
-          Edit <code>Config.gs</code> and set your <code>SPREADSHEET_ID</code>.
+          <strong>Actualizar configuración:</strong>
+          Edita <code>Config.gs</code> y establece tu <code>SPREADSHEET_ID</code>.
         </li>
         <li>
-          <strong>Push Code to Google:</strong>
-          Run <code>clasp push</code> to upload all files to Google Apps Script.
+          <strong>Subir código a Google:</strong>
+          Ejecuta <code>clasp push</code> para subir todos los archivos a Google Apps Script.
         </li>
         <li>
-          <strong>Deploy Web App:</strong>
-          In Google Apps Script editor: Deploy → New deployment → Web app → Deploy.
+          <strong>Desplegar aplicación web:</strong>
+          En el editor de Google Apps Script: Implementar → Nueva implementación → Aplicación web → Implementar.
         </li>
         <li>
-          <strong>Initialize System:</strong>
-          Open your spreadsheet → Promociones App menu → Initialize System.
+          <strong>Inicializar sistema:</strong>
+          Abre tu hoja de cálculo → menú Promociones App → Inicializar sistema.
         </li>
       </ol>
     </div>
@@ -244,92 +244,92 @@
     <!-- Status Cards -->
     <div class="status-cards">
       <div class="status-card info">
-        <h3>Phase Status</h3>
+        <h3>Estado de fase</h3>
         <div class="value">1/8</div>
-        <p>Foundation Complete</p>
+        <p>Base completada</p>
       </div>
 
       <div class="status-card success">
-        <h3>Files Created</h3>
+        <h3>Archivos creados</h3>
         <div class="value">5</div>
-        <p>Core files ready</p>
+        <p>Archivos principales listos</p>
       </div>
 
       <div class="status-card warning">
-        <h3>Next Phase</h3>
+        <h3>Siguiente fase</h3>
         <div class="value">2</div>
-        <p>Banks & Backend</p>
+        <p>Bancos y backend</p>
       </div>
 
       <div class="status-card info">
-        <h3>Estimated Time</h3>
+        <h3>Tiempo estimado</h3>
         <div class="value">2d</div>
-        <p>Phase 2 duration</p>
+        <p>Duración de fase 2</p>
       </div>
     </div>
 
     <!-- Quick Links -->
     <div class="welcome-card">
-      <h2>Quick Links (Coming in Phase 2+)</h2>
+      <h2>Enlaces rápidos (próximos en Fase 2+)</h2>
       <br>
       <div class="quick-links">
         <div class="quick-link">
           <div class="icon">🏦</div>
-          <div class="label">Banks</div>
-          <small>Phase 2</small>
+          <div class="label">Bancos</div>
+          <small>Fase 2</small>
         </div>
 
         <div class="quick-link">
           <div class="icon">🎁</div>
-          <div class="label">Promotions</div>
-          <small>Phase 3</small>
+          <div class="label">Promociones</div>
+          <small>Fase 3</small>
         </div>
 
         <div class="quick-link">
           <div class="icon">💸</div>
-          <div class="label">Transfers</div>
-          <small>Phase 6</small>
+          <div class="label">Transferencias</div>
+          <small>Fase 6</small>
         </div>
 
         <div class="quick-link">
           <div class="icon">⚙️</div>
-          <div class="label">Settings</div>
-          <small>Phase 7</small>
+          <div class="label">Configuración</div>
+          <small>Fase 7</small>
         </div>
 
         <div class="quick-link">
           <div class="icon">📅</div>
-          <div class="label">Timeline</div>
-          <small>Phase 8</small>
+          <div class="label">Cronología</div>
+          <small>Fase 8</small>
         </div>
 
         <div class="quick-link">
           <div class="icon">📄</div>
-          <div class="label">Documents</div>
-          <small>Phase 8</small>
+          <div class="label">Documentos</div>
+          <small>Fase 8</small>
         </div>
       </div>
     </div>
 
     <!-- Phase 1 Completion Summary -->
     <div class="welcome-card">
-      <h2>✅ Phase 1 Deliverables</h2>
+      <h2>✅ Entregables de Fase 1</h2>
       <br>
       <ul style="line-height: 2;">
-        <li>✓ Google Sheets structure defined (8 sheets)</li>
-        <li>✓ Project folder structure created</li>
-        <li>✓ Config.gs - Configuration management</li>
-        <li>✓ Utils.gs - Utility functions (UUID, dates, validation)</li>
-        <li>✓ SheetService.gs - Generic CRUD operations</li>
-        <li>✓ Code.js - Web app routing and entry points</li>
-        <li>✓ Dashboard.html - Basic UI (this page!)</li>
-        <li>✓ SETUP_GUIDE.md - Complete setup instructions</li>
+        <li>✓ Estructura de hojas de Google definida (8 hojas)</li>
+        <li>✓ Estructura de carpetas del proyecto creada</li>
+        <li>✓ Config.gs - Gestión de configuración</li>
+        <li>✓ Utils.gs - Funciones de utilidad (UUID, fechas, validación)</li>
+        <li>✓ SheetService.gs - Operaciones CRUD genéricas</li>
+        <li>✓ Code.js - Enrutamiento de aplicación web y puntos de entrada</li>
+        <li>✓ Dashboard.html - Interfaz básica (¡esta página!)</li>
+        <li>✓ SETUP_GUIDE.md - Instrucciones completas de configuración</li>
       </ul>
     </div>
   </div>
 
   <div class="footer">
-    <p>Gestión de Promociones Bancarias v1.0 | Phase 1 Complete |
+    <p>Gestión de promociones bancarias v1.0 | Fase 1 completada |
        <a href="https://github.com/ccarpiog/gestionPromocionesBancarias" target="_blank">GitHub</a>
     </p>
   </div>
